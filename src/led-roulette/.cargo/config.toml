@@ -1,4 +1,5 @@
-[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+[target.thumbv7em-none-eabihf]
+runner = 'probe-run --chip nRF52833_xxAA'
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
