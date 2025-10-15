@@ -35,14 +35,14 @@ fn main() -> ! {
         light_matrix[i][j] = 1;
 
         // Show light_matrix for 10ms
-        display.show(&mut timer, light_matrix, 10);
+        display.show(&mut timer, light_matrix, 50);
 
         // clear the display
         display.clear();
         light_matrix[i][j] = 0;
 
         // block
-        timer.delay_ms(10_u32);
+        timer.delay_ms(50u32);
     }
     unreachable!();
 }
