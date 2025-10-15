@@ -41,8 +41,7 @@ fn main() -> ! {
         loop {
             // We assume that the receiving cannot fail
             let byte = nb::block!(serial.read()).unwrap();
-            nb::block!(serial.write(byte)).unwrap();
-            nb::block!(serial.flush()).unwrap();
+            write!(serial, "{}", byte as char);
 
             if buffer.push(byte).is_err() {
                 write!(serial, "error: buffer full\r\n").unwrap();
@@ -50,9 +49,7 @@ fn main() -> ! {
             }
 
             if byte == 13 {
-                nb::block!(serial.write(b'\n')).unwrap();
-                nb::block!(serial.write(b'\r')).unwrap();
-                nb::block!(serial.flush()).unwrap();
+                write!(serial, "\n\r");
                 for &byte in buffer.iter().rev().chain(&[b'\n', b'\r']) {
                     nb::block!(serial.write(byte)).unwrap();
                 }
